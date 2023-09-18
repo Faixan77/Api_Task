@@ -8,21 +8,23 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function index()
+    {
+        $categories = Category::with('products')->get();
+        return response()->json(['categories' => $categories]);
+    }
+
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string',
-            'description' => 'string|nullable',
+            'description' => 'nullable|string',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-
-        $category = new Category();
-        $category->name = $request->input('name');
-        $category->description = $request->input('description');
-        $category->save();
+        $category = Category::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+        ]);
 
         return response()->json(['category' => $category], 201);
     }

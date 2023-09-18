@@ -24,7 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/customers', [CustomerController::class, 'create']);
 
 Route::post('/categories', [CategoryController::class, 'create']);
+Route::get('/categories', [CategoryController::class, 'index']);
 
 Route::post('/products', [ProductController::class, 'create']);
+Route::get('/products', [ProductController::class, 'index']);
+
 
 Route::post('/sales', [SaleController::class, 'create']);
+
+Route::put('/sales/{saleId}', [SaleController::class, 'update']);
+
+Route::delete('/sales/{saleId}',  [SaleController::class, 'destroy']);
+
+
+Route::get('/sales/{id}/invoice', [SaleController::class, 'generateInvoice']);

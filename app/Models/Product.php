@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory;
-
-    protected $fillable = ['inventory'];
+    protected $fillable = ['name', 'description', 'price', 'category_id', 'quantity'];
 
     public function category()
     {
@@ -20,6 +18,8 @@ class Product extends Model
 
     public function sales()
     {
-        return $this->hasMany(Sale::class);
+        return $this->belongsToMany(Sale::class)
+            ->using(ProductSale::class)
+            ->withPivot('quantity', 'subtotal', 'discount');
     }
 }

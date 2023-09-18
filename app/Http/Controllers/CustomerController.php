@@ -10,23 +10,18 @@ class CustomerController extends Controller
 {
     public function create(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required|string',
             'contact_info' => 'required|string',
             'address' => 'required|string',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
-        }
-
-        $customer = new Customer();
-        $customer->name = $request->input('name');
-        $customer->contact_info = $request->input('contact_info');
-        $customer->address = $request->input('address');
-        $customer->save();
+        $customer = Customer::create([
+            'name' => $request->input('name'),
+            'contact_info' => $request->input('contact_info'),
+            'address' => $request->input('address'),
+        ]);
 
         return response()->json(['customer' => $customer], 201);
     }
-
 }

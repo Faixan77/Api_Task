@@ -14,7 +14,3 @@ use App\Http\Controllers\SaleController;
 |
 */
 
-
-
-Route::get('/sales/invoice/{saleId}', [SaleController::class, 'generateInvoice']);
-

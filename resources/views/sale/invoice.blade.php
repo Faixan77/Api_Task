@@ -33,16 +33,20 @@
             </tr>
         </thead>
         <tbody>
+            @foreach ($sale->products as $product)
             <tr>
-                <td>{{ $sale->product->name }}</td>
-                <td>{{ $sale->quantity }}</td>
-                <td>{{ $sale->product->price }}</td>
-                <td>{{ $sale->discount }}</td>
-                <td>{{ $sale->total_amount }}</td>
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->pivot->quantity }}</td>
+                <td>{{ $product->price }}</td>
+                <td>{{ $product->pivot->discount }}</td>
+                <td>{{ $product->pivot->subtotal }}</td>
             </tr>
+            @endforeach
 
         </tbody>
     </table>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
